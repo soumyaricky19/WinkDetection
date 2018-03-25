@@ -52,6 +52,7 @@ def detect(frame, faceCascade, eyesCascade):
     eq_frame=frame  
     if avg > 190 or avg < 65:
         # print("Average: " + str(avg))
+        # print("Equalization done")
         img_yuv = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
         img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
         eq_frame = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
@@ -78,7 +79,7 @@ def detect(frame, faceCascade, eyesCascade):
     # print("Faces: "+str(len(faces)))
     for f in faces:
         x, y, w, h = f[0], f[1], f[2], f[3]
-        faceROI = frame[y:int(y+h/1.5), x:x+w]
+        faceROI = eq_frame[y:int(y+h/1.5), x:x+w]
         if detectWink(frame, (x, y), faceROI, eyesCascade) == 1:
             detected += 1
             cv2.rectangle(frame, (x,y), (x+w,y+h), (255, 0, 0), 2)
@@ -91,6 +92,7 @@ def detect(frame, faceCascade, eyesCascade):
             cv2.rectangle(frame, (0,0), (cols,rows), (255, 0, 0), 2)
         if num == 2 :
             cv2.rectangle(frame, (0,0), (cols,rows), (0, 255, 0), 2)
+    print("WINK DETECTED: ",detected)
     return detected
 
 
@@ -105,7 +107,6 @@ def run_on_folder(cascade1, cascade2, folder):
         img = cv2.imread(f, 1)
         if type(img) is np.ndarray:
             lCnt = detect(img, cascade1, cascade2)
-            print("WINK DETECTED: ",lCnt)
             totalCount += lCnt
             if windowName != None:
                 cv2.destroyWindow(windowName)
