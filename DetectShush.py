@@ -26,7 +26,6 @@ def detectShush(frame, location, ROI, cascade):
                 total+= img_yuv[i, j][0]
         avg=total/(rows*cols)
         # print("Average: " + str(avg)) 
-    avg=total/(rows*cols)
     eq_frame = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
 
     sharpness=cv2.Laplacian(eq_frame, cv2.CV_64F).var()
