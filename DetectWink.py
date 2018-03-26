@@ -64,8 +64,8 @@ def detect(frame, faceCascade, eyesCascade):
     blur_frame = cv2.GaussianBlur(eq_frame,(3,3),0)
     # blur_frame = cv2.medianBlur(frame, 5)
 
-    scaleFactor = 1.061 # range is from 1 to ..
-    minNeighbors = 13  # range is from 0 to ..
+    scaleFactor = 1.131 # range is from 1 to ..
+    minNeighbors = 15  # range is from 0 to ..
     flag = 0|cv2.CASCADE_SCALE_IMAGE # either 0 or 0|cv2.CASCADE_SCALE_IMAGE 
     minSize = (30,30) # range is from (0,0) to ..
     faces = faceCascade.detectMultiScale(
@@ -79,7 +79,8 @@ def detect(frame, faceCascade, eyesCascade):
     # print("Faces: "+str(len(faces)))
     for f in faces:
         x, y, w, h = f[0], f[1], f[2], f[3]
-        faceROI = eq_frame[y:int(y+h/1.5), x:x+w]
+        h1=int(y+h/1.5)
+        faceROI = eq_frame[y:h1, x:x+w]
         if detectWink(frame, (x, y), faceROI, eyesCascade) == 1:
             detected += 1
             cv2.rectangle(frame, (x,y), (x+w,y+h), (255, 0, 0), 2)
