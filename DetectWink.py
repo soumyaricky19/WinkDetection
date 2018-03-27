@@ -93,7 +93,7 @@ def detect(frame, faceCascade, eyesCascade):
             cv2.rectangle(frame, (0,0), (cols,rows), (255, 0, 0), 2)
         if num == 2 :
             cv2.rectangle(frame, (0,0), (cols,rows), (0, 255, 0), 2)
-    print("WINK DETECTED: ",detected)
+    # print("WINK DETECTED: ",detected)
     return detected
 
 

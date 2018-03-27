@@ -96,7 +96,7 @@ def detect(frame, faceCascade, mouthsCascade):
             cv2.rectangle(frame, (0,0), (cols,rows), (255, 0, 0), 2)
         else :
             cv2.rectangle(frame, (0,0), (cols,rows), (0, 255, 0), 2)
-    print("SHUSH DETECTED: ",detected)
+    # print("SHUSH DETECTED: ",detected)
     return detected
 
 
